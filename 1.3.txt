@@ -1,0 +1,21 @@
+First start a container from the ubuntu image with
+
+docker run --name curler -it ubuntu:16.04
+
+Then, inside, install curl with
+
+apt-get update
+apt-get install -y curl
+
+Then exit and start it again with
+
+docker start curler
+
+Then run the script:
+
+docker exec -it curler sh -c "read website; sleep 3; curl http://$website"
+
+And finally give helsinki.fi as input
+
+This worked from my Windows machine and the basic command line. I understood that the read command might need the -p flag for waiting for input, but it worked for me without it.
+

@@ -1,0 +1,9 @@
+Added 
+
+ENTRYPOINT FRONT_URL=http://localhost:5000 npm start
+
+to backend and
+
+ENTRYPOINT API_URL=http://localhost:8000 npm start
+
+to frontend so that they could interact with one another

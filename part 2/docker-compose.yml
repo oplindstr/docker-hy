@@ -1,0 +1,36 @@
+version: '3.5'  
+
+services: 
+    back: 
+      build:
+        context: ./back
+      ports: 
+        - 8000:8000
+      container_name: back
+      environment:
+      - REDIS=redis
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=oppass
+      - DB_HOST=db
+    front: 
+      build:
+        context: ./front
+      ports: 
+        - 5000:5000
+      container_name: front
+    db:
+      image: postgres
+      volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - data:/var/lib/postgresql/data
+      environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=oppass
+    redis:
+      image: redis
+      volumes:
+      - ./redis:/data
+      entrypoint: redis-server --appendonly yes
+volumes:
+  data:
+    external: true

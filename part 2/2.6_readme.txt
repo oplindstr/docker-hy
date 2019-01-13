@@ -1,0 +1,32 @@
+Redis volume worked nicely with
+
+volumes:
+- ./redis:/data
+entrypoint: redis-server --appendonly yes
+
+However, postgres volumes had a problem. An error stated that "data directory /var/lib/postgresql/data has wrong ownership".
+
+Found a workaround in 
+
+https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963
+
+It was to add this to docker-compose.yml:
+
+db:
+  volumes:
+  - data:/var/lib/postgresql/data
+
+and 
+
+volumes:
+  data:
+    external: true
+
+and run 
+
+docker volume create --name data -d local
+
+I then got all previously created messages in the Webpack App when pressing Get All Messages button.
+Other buttons also worked, except 2.5, which I didn't do at all.
+
+Only problem is that I don't know where the data is located on my own computer.
